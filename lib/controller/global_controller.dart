@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 // 定义一个全局控制器类，继承自GetxController
-class GloablController extends GetxController {
+class GlobalController extends GetxController {
   // 使用RxBool观察者，监控加载状态，默认为true表示正在加载
   final RxBool _isLoading = true.obs;
   // 使用RxDouble观察者，存储纬度信息，默认为0.0
