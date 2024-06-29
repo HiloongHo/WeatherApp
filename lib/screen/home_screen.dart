@@ -27,12 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Obx(() => globalController.checkLoading().isTrue
               ? const Center(child: CircularProgressIndicator())
               : ListView(
-            scrollDirection: Axis.vertical,
-            children: const[
-               SizedBox(height: 20),
-               HeaderWidget(),
-            ],
-          ))),
+                  scrollDirection: Axis.vertical,
+                  children: const [
+                    SizedBox(height: 20),
+                    HeaderWidget(),
+                  ],
+                ))),
     );
   }
 }

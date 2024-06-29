@@ -57,18 +57,22 @@ class GlobalController extends GetxController {
       // 请求位置权限
       locationPermission = await Geolocator.requestPermission();
       // 用户拒绝权限请求，抛出错误
-      if(locationPermission == LocationPermission.denied){
+      if (locationPermission == LocationPermission.denied) {
         return Future.error("位置权限被拒绝");
       }
     }
 
     // 获取当前位置信息，设置高精度
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value){
+    return await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high)
+        .then((value) {
       // 更新纬度和经度的值
       _lattitude.value = value.latitude;
       _longitude.value = value.longitude;
       // 设置加载状态为false，表示数据已加载完成
       _isLoading.value = false;
+      print(_lattitude.value);
+      print(_longitude.value);
     });
   }
 }
