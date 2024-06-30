@@ -2,6 +2,8 @@
 import 'package:geolocator/geolocator.dart';
 // 导入get包，用于状态管理
 import 'package:get/get.dart';
+import 'package:weatherapp_starter_project/api/fetch_weather.dart';
+import 'package:weatherapp_starter_project/model/weather_data.dart';
 
 // 定义一个全局控制器类，继承自GetxController
 class GlobalController extends GetxController {
@@ -20,6 +22,11 @@ class GlobalController extends GetxController {
 
   // 提供对外获取经度值的方法
   RxDouble getLongitude() => _longitude;
+
+  final weatherData = WeatherData().obs;
+  WeatherData getData(){
+    return weatherData.value;
+  }
 
   // 重写初始化方法，在控制器创建时被调用
   @override
@@ -69,10 +76,12 @@ class GlobalController extends GetxController {
       // 更新纬度和经度的值
       _lattitude.value = value.latitude;
       _longitude.value = value.longitude;
-      // 设置加载状态为false，表示数据已加载完成
-      _isLoading.value = false;
-      print(_lattitude.value);
-      print(_longitude.value);
+
+      return FetchWeatherAPI().processData(value.latitude, value.longitude).then((value) {
+        weatherData.value = value;
+        _isLoading.value = false;
+      });
+
     });
   }
 }
